@@ -32,16 +32,16 @@ def dijkstra(graph, start, end):
     
     return distances[end]
 
-# Graph of locations (Chabahil is fixed, others are dynamic)
+# Graph of locations (a is fixed, others are dynamic)
 locations = {
-        'Chabahil': {'Gaushala': 5, 'Sinamagal': 10},
-        'Gaushala': {'Chabahil': 5, 'Baneshwor': 2},
-        'Sinamagal': {'Chabahil': 10, 'Baneshwor': 4, 'Thapathali': 8},
-        'Baneshwor': {'Gaushala': 2, 'Sinamagal': 4, 'Thapathali': 3},
-        'Thapathali': {'Sinamagal': 8, 'Baneshwor': 3}
+        'a': {'b': 5, 'c': 10},
+        'b': {'a': 5, 'd': 2},
+        'c': {'a': 10, 'd': 4, 'e': 8},
+        'd': {'b': 2, 'c': 4, 'e': 3},
+        'e': {'c': 8, 'd': 3}
 }
 app = Flask(__name__)
-app.secret_key = 'darumaikki'  # Required for session and flash messages
+app.secret_key = 'Your_Secret_key'  # Required for session and flash messages
 
 # Load the training history from the JSON file
 with open('../training_histtory.json', 'r') as f:
@@ -180,24 +180,12 @@ def home():
 
     return render_template('home.html', prediction=prediction, supplement=supplement, diseaseDescription=disease_info, medicine=medicine, file_path=file_path, confidence=confidence, accuracy=accuracy)
 
-# @app.route("/home",methods=['GET', 'POST'])
-# def get_medicine():
-#     estimated_time = None
-#     start_location = None
-#     end_location = 'Chabahil'  # fixed to Chabahil for simplicity
-
-#     if request.method == 'POST':
-#         start_location = request.form.get('start_location')
-#         if start_location:
-#         # Call Dijkstra's algorithm to calculate the estimated time
-#             estimated_time = dijkstra(locations, start_location, end_location)
-#     return render_template('home.html', locations=locations, estimated_time=estimated_time, start=start_location, end=end_location)
 #below code works. yo backup hunxa
 @app.route("/algodemo",methods=['GET', 'POST'])
 def algodemo():
     estimated_time = None
     start_location = None
-    end_location = 'Chabahil'  # fixed to Chabahil for simplicity
+    end_location = 'a'  # fixed to a for simplicity
     delivery_time = None
 
     if request.method == 'POST':
